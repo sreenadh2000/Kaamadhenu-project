@@ -10,8 +10,6 @@ import {
   AlertCircle,
   Loader2,
 } from "lucide-react";
-import StatusModal from "../../../components/admin/StatusModal";
-import { useAdminProductStore } from "../../../store/admin/AdminProductStore";
 import AdminHeaderWrapper from "../../../components/admin/AdminHeaderWrapper";
 import { useProductStore } from "../../../store/common/useProductStore";
 
@@ -35,9 +33,6 @@ export default function ProductDetails() {
   const [form, setForm] = useState(initialFormData);
   const {
     loading,
-    error,
-    successMessage,
-    clearStatus,
     categoriesData,
     fetchCategories,
     fetchProductById,
@@ -52,7 +47,6 @@ export default function ProductDetails() {
   }, [id, fetchProductById, fetchCategories]);
 
   const mapStoreToForm = (data) => {
-    console.log("selectedform data :", data);
     const apiImages =
       data.images?.map((img) => ({
         id: img._id,
@@ -86,6 +80,7 @@ export default function ProductDetails() {
   // Sync Form with Store Data
   useEffect(() => {
     if (selectedProduct && Object.keys(selectedProduct).length !== 0) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       mapStoreToForm(selectedProduct);
     }
   }, [selectedProduct]);
@@ -226,7 +221,7 @@ export default function ProductDetails() {
           {!editMode ? (
             <button
               onClick={() => setEditMode(true)}
-              className="flex items-center gap-2 bg-primary/10 rounded-2xl text-primary px-4 py-2 rounded-xl cursor-pointer font-bold hover:bg-primary/20 transition-all"
+              className="flex items-center gap-2 bg-primary/10 rounded-2xl text-primary px-4 py-2 cursor-pointer font-bold hover:bg-primary/20 transition-all"
             >
               <Pencil size={16} className="text-primary" /> Edit
             </button>

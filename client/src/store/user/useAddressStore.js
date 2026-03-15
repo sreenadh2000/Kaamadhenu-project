@@ -15,7 +15,6 @@ export const useAddressStore = create((set) => ({
     try {
       set({ loading: true });
       const res = await axios.get("/addresses");
-      console.log("get Addresses :", res.data);
       if (res.data.success) {
         set({
           addresses: res.data.addresses,

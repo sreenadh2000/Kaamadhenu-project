@@ -10,8 +10,8 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { useProductStore } from "../../../store/common/useProductStore";
-import { useOrderStore } from "../../../store/user/useOrderStore";
 import { useUserStore } from "../../../store/admin/useUserStore";
+import { useOrderStore } from "../../../store/user/useOrderStore";
 
 export default function Dashboard() {
   const { productsData, fetchProducts } = useProductStore();
@@ -24,29 +24,10 @@ export default function Dashboard() {
     fetchProducts();
   }, [fetchAllOrders, fetchAllUsers, fetchProducts]);
 
-  console.log("ordereds :", orders);
   const topOrdereditems = orders
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     .slice(0, 5);
 
-  const [recentOrders] = useState([
-    {
-      id: 1,
-      order_number: "ORD-9921",
-      status: "delivered",
-      total_amount: 1250.0,
-      customer: "Aravind Kumar",
-      date: "30 Dec 2025",
-    },
-    {
-      id: 2,
-      order_number: "ORD-9922",
-      status: "processing",
-      total_amount: 4500.0,
-      customer: "Saira Banu",
-      date: "30 Dec 2025",
-    },
-  ]);
   const [stats, setStats] = useState({
     totalProducts: productsData.length,
     totalCustomers: users.length,
@@ -212,7 +193,7 @@ export default function Dashboard() {
             </tbody>
           </table>
 
-          {recentOrders.length === 0 && (
+          {topOrdereditems.length === 0 && (
             <div className="py-20 text-center">
               <p className="text-slate-400 text-sm font-medium italic">
                 No recent transactions recorded.

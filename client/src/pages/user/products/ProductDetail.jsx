@@ -7,8 +7,6 @@ import {
   Shield,
   ChevronLeft,
   ShoppingCart,
-  Heart,
-  Share2,
   Minus,
   Plus,
 } from "lucide-react";
@@ -26,17 +24,7 @@ export default function ProductDetail() {
   const [activeImage, setActiveImage] = useState(0);
 
   // Use Zustand store instead of local state
-  const {
-    cartData,
-    cartItems,
-    cartTotal,
-    cartCount,
-    clearCart,
-    removeFromCart,
-    updateCartItem,
-    addToCart,
-    fetchCart,
-  } = useCartStore();
+  const { addToCart } = useCartStore();
   const { user } = useAuthStore();
   const { fetchProductById, selectedProduct, loading } = useProductStore();
 
@@ -46,6 +34,7 @@ export default function ProductDetail() {
 
   useEffect(() => {
     const variantData = selectedProduct?.variants[0];
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSelectedVariant(variantData);
   }, [selectedProduct]);
 

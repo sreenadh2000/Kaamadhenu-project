@@ -1,4 +1,3 @@
-// src/pages/admin/categories/ViewAllCategories.jsx
 import { useState, useMemo, useEffect } from "react";
 import {
   Plus,
@@ -77,7 +76,6 @@ export default function ViewAllCategories() {
       )
     ) {
       await deleteCategory(category._id);
-      console.log("Delete logic here for ID:", category._id);
     }
   };
 
@@ -86,8 +84,6 @@ export default function ViewAllCategories() {
     setSort("name-asc");
     setCurrentPage(1);
   };
-
-  console.log("categories :", categoriesData);
 
   return (
     <div className="pb-10">
@@ -116,7 +112,7 @@ export default function ViewAllCategories() {
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value)}
-                className="pl-11 pr-8 py-3 bg-gray-50 border-2 border-gray-200 rounded-2xl text-sm font-bold text-gray-600 focus:ring-2 focus:ring-primary/20 outline-none cursor-pointer appearance-none min-w-[180px]"
+                className="pl-11 pr-8 py-3 bg-gray-50 border-2 border-gray-200 rounded-2xl text-sm font-bold text-gray-600 focus:ring-2 focus:ring-primary/20 outline-none cursor-pointer appearance-none min-w-45"
               >
                 <option value="name-asc">Alphabetical (A-Z)</option>
                 <option value="name-desc">Alphabetical (Z-A)</option>

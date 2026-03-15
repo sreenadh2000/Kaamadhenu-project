@@ -34,19 +34,23 @@ export const registerUser = async (req, res) => {
     const accessToken = generateAccessToken(user._id, user.role);
     const refreshToken = await generateRefreshToken(user._id, user.role);
 
+    const accessTokenExpire = process.env.ACCESS_TOKEN_EXPIRE || 60 * 60 * 1000; // fallback 1 hour
+    const refreshTokenExpire =
+      process.env.REFRESH_TOKEN_EXPIRE || 2 * 24 * 60 * 60 * 1000; // fallback 2 days
+
     // 🍪 Set Cookies
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 15 * 60 * 1000, // 15 mins
+      maxAge: accessTokenExpire,
     });
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      maxAge: refreshTokenExpire,
     });
 
     res.status(201).json({
@@ -128,20 +132,23 @@ export const loginUser = async (req, res) => {
     const accessToken = generateAccessToken(user._id, user.role);
     const refreshToken = await generateRefreshToken(user._id, user.role);
 
+    const accessTokenExpire = process.env.ACCESS_TOKEN_EXPIRE || 60 * 60 * 1000; // fallback 1 hour
+    const refreshTokenExpire =
+      process.env.REFRESH_TOKEN_EXPIRE || 2 * 24 * 60 * 60 * 1000; // fallback 2 days
+
     // 🍪 Set Cookies
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      // 7 hours * 60 mins * 60 secs * 1000 ms
-      maxAge: 7 * 60 * 60 * 1000,
+      maxAge: accessTokenExpire,
     });
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: refreshTokenExpire,
     });
 
     res.status(200).json({
@@ -186,12 +193,13 @@ export const refreshToken = async (req, res) => {
 
     const newAccessToken = generateAccessToken(decoded.id, decoded.role);
 
+    const accessTokenExpire = process.env.ACCESS_TOKEN_EXPIRE || 60 * 60 * 1000; // fallback 1 hour
+
     res.cookie("accessToken", newAccessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      // 7 hours * 60 mins * 60 secs * 1000 ms
-      maxAge: 7 * 60 * 60 * 1000,
+      maxAge: accessTokenExpire,
     });
 
     res.status(200).json({

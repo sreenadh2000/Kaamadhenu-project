@@ -13,7 +13,6 @@ import {
 import { Link } from "react-router-dom";
 import AdminHeaderWrapper from "../../../components/admin/AdminHeaderWrapper";
 import Pagination from "../../../components/admin/Pagination";
-// import { useAdminOrderStore } from "../../../store/admin/AdminOrderStore";
 import { useOrderStore } from "../../../store/user/useOrderStore";
 
 const wrapperData = {
@@ -36,7 +35,6 @@ export default function ViewAllOrders() {
   useEffect(() => {
     fetchAllOrders();
   }, [fetchAllOrders]);
-  console.log("orders :", orders);
 
   // Combined Search and Filter Logic
   const filtered = useMemo(() => {

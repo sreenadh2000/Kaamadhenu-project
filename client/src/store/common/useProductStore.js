@@ -19,7 +19,6 @@ export const useProductStore = create((set, get) => ({
     set({ loading: true, error: null });
     try {
       const res = await axios.get("/categories");
-      console.log("getAll categories :", res.data.categories);
       if (res.data.success) {
         set({
           categoriesData: res.data.categories,
@@ -201,7 +200,6 @@ export const useProductStore = create((set, get) => ({
       productForm.images.forEach((img) => {
         formData.append("images", img.file);
       });
-      console.log("this is form Data :", [...formData.entries()]);
 
       const res = await axios.post("/products", formData);
 
@@ -241,7 +239,6 @@ export const useProductStore = create((set, get) => ({
           formData.append(key, updatedData[key]);
         }
       });
-      console.log("form data :", [...formData.entries()]);
 
       const res = await axios.put(`/products/${id}`, formData);
 

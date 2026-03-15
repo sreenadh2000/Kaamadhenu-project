@@ -24,11 +24,31 @@ const app = express();
 
 connectDB();
 app.use(cookieParser());
-// app.use(cors());
+// app.use(
+//   cors({
+//     origin: true,
+//     credentials: true,
+//   }),
+// );
+const allowedOrigins = [
+  "http://localhost:9898",
+  "https://www.khamadhenu.com",
+  "http://www.khamadhenu.com",
+];
+
 app.use(
   cors({
-    origin: true,
-    credentials: true,
+    origin: function (origin, callback) {
+      // allow requests with no origin (like Postman)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true, // allow cookies
   }),
 );
 
@@ -65,8 +85,8 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/carts", cartRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/addresses", addressRoutes);
-// app.use("/api/monitor", monitorRoutes);
 app.use("/api/users", userRoutes);
+// app.use("/api/monitor", monitorRoutes);
 // app.use("/api/admin/coupons", adminCouponRoutes);
 // app.use("/api/coupons", userCouponRoutes);
 

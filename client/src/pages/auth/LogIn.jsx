@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Mail, Lock, ArrowRight, LogIn, KeyRound } from "lucide-react";
 import { useAuthStore } from "../../store/auth/useAuthStore";
@@ -14,11 +14,15 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
-  const { user, login, loading, error } = useAuthStore();
+  const { user, login, loading, error, clearStatus } = useAuthStore();
 
   // Get cart store methods
-  //   const setUser = useCartStore((state) => state.setUser);
-  //   const mergeGuestCart = useCartStore((state) => state.mergeGuestCart);
+
+  useEffect(() => {
+    return () => {
+      clearStatus();
+    };
+  }, [clearStatus]);
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -59,9 +63,9 @@ export default function Login() {
     }
   };
 
-  const handleForgotPassword = () => {
-    navigate("/auth/forgot-password");
-  };
+  // const handleForgotPassword = () => {
+  //   navigate("/auth/forgot-password");
+  // };
 
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-50 to-blue-50 flex items-center justify-center p-4">

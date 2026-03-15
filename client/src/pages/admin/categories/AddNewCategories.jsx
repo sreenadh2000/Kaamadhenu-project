@@ -1,4 +1,3 @@
-// src/pages/admin/categories/AddNewCategory.jsx
 import { useState } from "react";
 import {
   Tag,

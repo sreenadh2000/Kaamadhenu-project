@@ -49,8 +49,6 @@ export default function ViewAllCustomers() {
     loadData();
   }, []);
 
-  console.log(" All users :", users);
-
   const filtered = useMemo(() => {
     if (!users || !Array.isArray(users)) return [];
 

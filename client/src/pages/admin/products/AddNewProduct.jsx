@@ -10,7 +10,6 @@ import {
   Hash,
   AlertCircle,
 } from "lucide-react";
-import StatusModal from "../../../components/admin/StatusModal";
 import AdminHeaderWrapper from "../../../components/admin/AdminHeaderWrapper";
 import { useProductStore } from "../../../store/common/useProductStore";
 
@@ -55,15 +54,8 @@ export default function AddProductForm() {
   const [form, setForm] = useState(initialFormData);
   const [errors, setErrors] = useState({});
 
-  const {
-    fetchCategories,
-    categoriesData,
-    addProduct,
-    loading,
-    error,
-    successMessage,
-    clearStatus,
-  } = useProductStore();
+  const { fetchCategories, categoriesData, addProduct, loading } =
+    useProductStore();
 
   useEffect(() => {
     const loadcategories = async () => {
@@ -187,53 +179,6 @@ export default function AddProductForm() {
       console.error(err);
     }
   };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (!validate()) {
-  //     window.scrollTo({ top: 0, behavior: "smooth" });
-  //     return;
-  //   }
-
-  //   const selectedCategory = categoriesData.find(
-  //     (c) => c._id === form.category_id,
-  //   );
-  //   console.log("form :", form);
-  //   console.log("selectedcategory :", selectedCategory);
-  //   const payload = {
-  //     id: `P-${Date.now()}`,
-  //     name: form.name,
-  //     description: form.description,
-  //     stock_quantity: Number(form.stock_quantity),
-  //     stock_unit: form.stock_unit,
-  //     is_active: form.is_active,
-  //     category_id: selectedCategory.id,
-  //     product_variants: form.variants.map((v, i) => ({
-  //       id: `PV-${Date.now()}-${i}`,
-  //       variant_name: v.variant_name,
-  //       variant_price: v.regular_price,
-  //       variant_quantity: v.stock_quantity,
-  //       quantity_unit: v.unit,
-  //     })),
-  //     product_images: form.images.map((img, i) => ({
-  //       id: `PI-${Date.now()}-${i}`,
-  //       image_path: img.url,
-  //       is_primary: img.isPrimary,
-  //     })),
-  //     categorie_details: selectedCategory,
-  //   };
-
-  //   // try {
-  //   //   await addProduct(payload);
-  //   //   setTimeout(() => {
-  //   //     clearStatus();
-  //   //     setForm(initialFormData);
-  //   //     setErrors({});
-  //   //   }, 2000);
-  //   // } catch (err) {
-  //   //   console.error(err);
-  //   // }
-  // };
 
   return (
     <div className="pb-12">

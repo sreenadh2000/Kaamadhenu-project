@@ -30,7 +30,6 @@ export default function OrderDetails() {
     fetchOrderById(id);
     return () => clearOrderDetails(); // Cleanup alerts on unmount
   }, [id, fetchOrderById, clearOrderDetails]);
-  console.log("selected order details :", selectedOrder);
 
   // 3. Sync local status state when order data arrives
   useEffect(() => {

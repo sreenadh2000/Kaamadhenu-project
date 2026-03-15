@@ -84,7 +84,6 @@ export default function CategoryDetails() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
-    console.log("Updated Category:", form);
     await updateCategory(id, form);
     // TODO: API PUT request here
     setEditMode(false);
@@ -106,7 +105,6 @@ export default function CategoryDetails() {
       )
     )
       return;
-    console.log("Deleted Category ID:", id);
     await deleteCategory(id);
     navigate("/admin/categories");
   };

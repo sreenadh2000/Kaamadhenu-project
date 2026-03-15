@@ -1,4 +1,3 @@
-// src/pages/admin/customers/AddCustomer.jsx
 import { useState, useCallback } from "react";
 import {
   User,
@@ -87,7 +86,7 @@ export default function AddCustomer() {
       setForm((prev) => ({ ...prev, [k]: v }));
       if (errors[k]) setErrors((prev) => ({ ...prev, [k]: null }));
     },
-    [errors]
+    [errors],
   );
 
   const updateAddress = useCallback((k, v) => {
